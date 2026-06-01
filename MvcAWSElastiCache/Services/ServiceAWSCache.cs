@@ -35,12 +35,10 @@ namespace MvcAWSElastiCache.Services
             {
                 coches = new List<Coche>();
             }
-            else
-            {
-                coches.Add(car);
-                string json = JsonConvert.SerializeObject(coches);
-                await this.cache.StringSetAsync("favoritos", json, TimeSpan.FromMinutes(30));
-            }
+
+            coches.Add(car);
+            string json = JsonConvert.SerializeObject(coches);
+            await this.cache.StringSetAsync("favoritos", json, TimeSpan.FromMinutes(30));
         }
 
         public async Task DeleteFavoritoAsync(int id)
