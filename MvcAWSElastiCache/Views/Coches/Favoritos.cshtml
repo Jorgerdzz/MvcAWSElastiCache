@@ -1,0 +1,65 @@
+@model IEnumerable<MvcAWSElastiCache.Models.Coche>
+
+@{
+    ViewData["Title"] = "Coches Favoritos";
+}
+
+<h1>Mis Coches Favoritos</h1>
+
+<p>
+    <a asp-action="Index">Volver al Cajón de Coches</a>
+</p>
+
+@if (Model != null && Model.Count() > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdCoche)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Marca)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Modelo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Imagen)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdCoche)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Marca)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Modelo)
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.Imagen))
+                        {
+                            <img src="@item.Imagen" alt="Imagen del coche" style="max-height: 100px;" />
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="DeleteFavorito" asp-route-id="@item.IdCoche" class="btn btn-danger">Eliminar Favorito</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-warning">
+        No tienes coches marcados como favoritos.
+    </div>
+}
